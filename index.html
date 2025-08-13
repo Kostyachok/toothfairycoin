@@ -12,49 +12,70 @@
       color: #fff;
       text-align: center;
       padding: 0;
+      overflow-x: hidden;
+    }
+    header {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
     }
     header img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
       display: block;
+      filter: brightness(0.5);
     }
-    h1 {
-      font-size: 2.5em;
-      margin-top: 20px;
+    .overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      max-width: 80%;
+      z-index: 2;
     }
-    p {
+    .overlay h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+    .overlay p {
       font-size: 1.2em;
-      max-width: 700px;
-      margin: 10px auto;
       line-height: 1.4;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
     }
-    .slogan {
-      font-size: 1.5em;
+    .overlay .slogan {
+      font-size: 1.8em;
       font-weight: bold;
       margin-top: 15px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      animation: neonFlash 1s infinite;
     }
-    .social-links {
-      margin-top: 30px;
+    @keyframes neonFlash {
+      0%, 100% { color: #ff00ff; text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff33ff, 0 0 20px #ff66ff; }
+      25% { color: #00ffff; text-shadow: 0 0 5px #00ffff, 0 0 10px #33ffff, 0 0 20px #66ffff; }
+      50% { color: #00ff00; text-shadow: 0 0 5px #00ff00, 0 0 10px #33ff33, 0 0 20px #66ff66; }
+      75% { color: #ffff00; text-shadow: 0 0 5px #ffff00, 0 0 10px #ffff33, 0 0 20px #ffff66; }
     }
-    .social-links a {
-      display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
-      background: rgba(0,0,0,0.3);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 10px;
-      transition: background 0.3s;
+    .tooth {
+      position: absolute;
+      width: 40px;
+      height: auto;
+      z-index: 1;
+      animation: fall linear forwards;
     }
-    .social-links a:hover {
-      background: rgba(0,0,0,0.6);
+    @keyframes fall {
+      from { transform: translateY(-50px) rotate(0deg); }
+      to { transform: translateY(110vh) rotate(360deg); }
     }
     footer {
-      margin-top: 50px;
+      padding: 10px;
+      background: rgba(0,0,0,0.5);
       font-size: 0.9em;
       color: rgba(255,255,255,0.8);
-      padding: 10px;
+      position: relative;
+      z-index: 3;
     }
   </style>
 </head>
@@ -62,29 +83,41 @@
 
 <header>
   <img src="banner.png" alt="Tooth Fairy Coin Banner" />
+  <div class="overlay">
+    <h1>Tooth Fairy Coin ($TFC)</h1>
+    <p>💫 The Tooth Fairy Coin — the only coin backed by <em>real teeth</em> (source undisclosed).<br>
+    Every holder gets a nightly visit — the fairy comes and <strong>your teeth go missing</strong>. <strong>Guaranteed!</strong></p>
+    <p class="slogan">Fairy’s on the way — teeth won’t stay!</p>
+    <p>🦷 1 TFC = 1 tooth (most likely with cavities).<br>
+    📈 Invest while the pillow still approves the emission.</p>
+    <p><em>"Teeth are the new oil" — Warren Buffett (probably).</em></p>
+  </div>
 </header>
-
-<h1>Tooth Fairy Coin ($TFC)</h1>
-
-<p>💫 The Tooth Fairy Coin — the only coin backed by <em>real teeth</em> (source undisclosed).<br>
-Every holder gets a nightly visit — the fairy comes and <strong>your teeth go missing</strong>. <strong>Guaranteed!</strong></p>
-
-<p class="slogan">Fairy’s on the way — teeth won’t stay!</p>
-
-<p>🦷 1 TFC = 1 tooth (most likely with cavities).<br>
-📈 Invest while the pillow still approves the emission.</p>
-
-<p><em>"Teeth are the new oil" — Warren Buffett (probably).</em></p>
-
-<div class="social-links">
-  <a href="https://twitter.com" target="_blank">Twitter</a>
-  <a href="https://t.me" target="_blank">Telegram</a>
-  <a href="https://discord.com" target="_blank">Discord</a>
-</div>
 
 <footer>
   Powered by Proof-of-Tooth technology • ICO ends when you lose your last tooth
 </footer>
+
+<script>
+  const toothImages = [
+    'tooth1.png',
+    'tooth2.png',
+    'tooth3.png'
+  ];
+
+  function createTooth() {
+    const tooth = document.createElement('img');
+    tooth.src = toothImages[Math.floor(Math.random() * toothImages.length)];
+    tooth.classList.add('tooth');
+    tooth.style.left = Math.random() * window.innerWidth + 'px';
+    tooth.style.animationDuration = (3 + Math.random() * 5) + 's';
+    document.body.appendChild(tooth);
+
+    setTimeout(() => tooth.remove(), 8000);
+  }
+
+  setInterval(createTooth, 300);
+</script>
 
 </body>
 </html>
