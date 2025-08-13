@@ -52,19 +52,20 @@
 
     .tooth {
       position: absolute;
+      top: -60px; /* начинаем за пределами экрана сверху */
       z-index: 0;
       animation: fall linear infinite;
       opacity: 0.9;
     }
 
     @keyframes fall {
-      from { transform: translateY(-50px) rotate(0deg); }
-      to { transform: translateY(110vh) rotate(360deg); }
+      from { transform: translateY(0) rotate(0deg); }
+      to { transform: translateY(calc(100vh + 60px)) rotate(360deg); }
     }
 
     @keyframes fallReverse {
-      from { transform: translateY(-50px) rotate(0deg); }
-      to { transform: translateY(110vh) rotate(-360deg); }
+      from { transform: translateY(0) rotate(0deg); }
+      to { transform: translateY(calc(100vh + 60px)) rotate(-360deg); }
     }
   </style>
 </head>
@@ -86,15 +87,11 @@
     tooth.src = teethImages[Math.floor(Math.random() * teethImages.length)];
     tooth.className = 'tooth';
     tooth.style.left = Math.random() * 100 + 'vw';
-    tooth.style.width = (30 + Math.random() * 40) + 'px'; // разный размер
+    tooth.style.width = (30 + Math.random() * 40) + 'px';
     tooth.style.animationDuration = (4 + Math.random() * 6) + 's';
 
     // случайное направление вращения
-    if (Math.random() > 0.5) {
-      tooth.style.animationName = 'fall';
-    } else {
-      tooth.style.animationName = 'fallReverse';
-    }
+    tooth.style.animationName = Math.random() > 0.5 ? 'fall' : 'fallReverse';
 
     document.body.appendChild(tooth);
 
