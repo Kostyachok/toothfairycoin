@@ -7,95 +7,110 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
-      background: url('banner.png') center/cover no-repeat;
-      overflow: hidden;
       font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff8ba7, #ffb84d);
       color: #fff;
-    }
-
-    .overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.3);
-      z-index: 1;
-    }
-
-    .content {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       text-align: center;
-      padding: 20px;
+      overflow: hidden;
     }
-
+    header img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
     h1 {
-      font-size: 3em;
-      animation: neonPulse 1.5s infinite alternate;
+      font-size: 2.5em;
+      margin-top: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
-
+    p {
+      font-size: 1.2em;
+      max-width: 700px;
+      margin: 10px auto;
+      line-height: 1.4;
+    }
     .slogan {
       font-size: 1.5em;
       font-weight: bold;
-      animation: neonPulse 1s infinite alternate;
+      margin-top: 15px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
-
-    @keyframes neonPulse {
-      from { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #ff0; color: #fff; }
-      to { text-shadow: 0 0 20px #f0f, 0 0 30px #ff0, 0 0 40px #0ff; color: #ff0; }
+    .buy-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 30px;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #fff;
+      background: #ff4d6d;
+      border-radius: 15px;
+      text-decoration: none;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      transition: background 0.3s ease;
     }
-
+    .buy-btn:hover {
+      background: #e63950;
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: rgba(255,255,255,0.8);
+    }
     .tooth {
       position: absolute;
-      top: -60px; /* начинаем за пределами экрана сверху */
-      z-index: 0;
-      animation: fall linear infinite;
-      opacity: 0.9;
+      width: 40px;
+      height: 40px;
+      user-select: none;
+      pointer-events: none;
+      animation: fall linear infinite, spin linear infinite;
     }
-
     @keyframes fall {
-      from { transform: translateY(0) rotate(0deg); }
-      to { transform: translateY(calc(100vh + 60px)) rotate(360deg); }
+      0% { transform: translateY(-50px) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
     }
-
-    @keyframes fallReverse {
-      from { transform: translateY(0) rotate(0deg); }
-      to { transform: translateY(calc(100vh + 60px)) rotate(-360deg); }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
 
-<div class="overlay"></div>
+<header>
+  <img src="banner.png" alt="Tooth Fairy Coin Banner" />
+</header>
 
-<div class="content">
-  <h1>💫 Tooth Fairy Coin ($TFC)</h1>
-  <p>Every night, the fairy comes — and your teeth go missing. <strong>Guaranteed!</strong></p>
-  <p class="slogan">Fairy’s on the way — teeth won’t stay!</p>
-</div>
+<h1>Tooth Fairy Coin ($TFC)</h1>
+
+<p>💫 The Tooth Fairy Coin — the only coin backed by <em>real teeth</em> (source undisclosed).<br>
+Every night, the fairy comes — <strong>teeth won’t stay</strong>. <strong>Guaranteed!</strong></p>
+
+<p class="slogan">Fairy’s on the way — teeth won’t stay!</p>
+
+<a href="https://pump.fun/coin/6r5fo2PZ994NjDtZhpiF8oAyDm5BuNCBpuLBB9HFpump" target="_blank" class="buy-btn">🦷 Buy $TFC</a>
+
+<footer>
+  Powered by Proof-of-Tooth technology • ICO ends when you lose your last tooth
+</footer>
 
 <script>
-  const teethImages = ['tooth1.png', 'tooth2.png', 'tooth3.png'];
+  const toothImages = ["tooth1.png", "tooth2.png", "tooth3.png"];
 
   function createTooth() {
-    const tooth = document.createElement('img');
-    tooth.src = teethImages[Math.floor(Math.random() * teethImages.length)];
-    tooth.className = 'tooth';
-    tooth.style.left = Math.random() * 100 + 'vw';
-    tooth.style.width = (30 + Math.random() * 40) + 'px';
-    tooth.style.animationDuration = (4 + Math.random() * 6) + 's';
-
-    // случайное направление вращения
-    tooth.style.animationName = Math.random() > 0.5 ? 'fall' : 'fallReverse';
-
+    const tooth = document.createElement("img");
+    tooth.src = toothImages[Math.floor(Math.random() * toothImages.length)];
+    tooth.classList.add("tooth");
+    tooth.style.left = Math.random() * 100 + "vw";
+    tooth.style.animationDuration = (Math.random() * 3 + 4) + "s, " + (Math.random() * 3 + 2) + "s";
+    if (Math.random() > 0.5) {
+      tooth.style.animationDirection = "normal, reverse";
+    }
     document.body.appendChild(tooth);
 
-    setTimeout(() => tooth.remove(), 10000);
+    setTimeout(() => {
+      tooth.remove();
+    }, 8000);
   }
 
   setInterval(createTooth, 300);
